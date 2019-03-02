@@ -37,7 +37,7 @@ function clearCards(){
     cardWrapper.appendChild(cardTitle);
     var cardSupportingText = document.createElement('div');
     cardSupportingText.className = 'mdl-card__supporting-text';
-    cardSupportingText.textContent = data.department;
+    cardSupportingText.textContent = data.status;
     // var cardSaveButton = document.createElement('button');
     // cardSaveButton.textContent="Save"; 
     // cardSaveButton.addEventListener('click', onSaveButtonClicked);

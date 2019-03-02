@@ -201,6 +201,10 @@
         </div>
       </main>
     </div>
+    <script src="./src/js/promise.js"></script>
+    <script src="./src/js/fetch.js"></script>
+    <script src="./src/js/idb.js"></script>
+    <script src="./src/js/utility.js"></script>
      <script type="text/javascript">
       var url;
       //window.onload = async function(){
@@ -233,10 +237,36 @@
 
 
 
-
-
+      var key1;
+      readAllData('login-tokens').then(function(data){
+    console.log("Data Read", data);
+    console.log(data[0].token);
+    key1 = data[0].token;
+});
        document.querySelector('#switch-1').addEventListener('change', function(){
         console.log(this.checked);
+        var status1;
+        if(this.checked == true){
+            status1 = "AVL";
+        }
+        else{
+          status1 = "NA";
+        }
+        console.log(status1);
+        fetch("https://availo-api.herokuapp.com/officers", {
+          method : "PATCH",
+          headers : {
+            "Content-Type" : "application/json",
+            Authorization : "Bearer "+key1
+          },
+          body:JSON.stringify({
+              status : status1
+          })
+        }).then(function(res){
+          console.log("Status Updated!",res);
+        }).catch(function(err){
+          console.log("Error in updating Status", err);
+        });
        });
      </script>
   

@@ -1,4 +1,9 @@
 //document.addEventListener('load',function(event
+
+clearAllData('login-tokens').then(function(){
+  console.log("Login token cleared");
+})
+
 $("#action").click( function(){
     var email = $("#email").val();
     var password = $("#password").val();
@@ -27,6 +32,7 @@ $("#action").click( function(){
       writeData('login-tokens',data)
       .then(function(){
           console.log("Token Added");
+          //document.querySelector("#action").href = "./index.html";
       })
     })
     .catch(err => alert("error! " + err));
