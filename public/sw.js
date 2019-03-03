@@ -1,8 +1,8 @@
 importScripts('./src/js/idb.js');
 importScripts('./src/js/utility.js');
 
-var CACHE_STATIC = "static-v75";
-var CACHE_DYNAMIC = "dynamic-v40";
+var CACHE_STATIC = "static-v187";
+var CACHE_DYNAMIC = "dynamic-v188";
 var STATIC_ARRAY = [
     './',
     './offline.html',
@@ -99,22 +99,7 @@ function isInArray(string,array){
 
 self.addEventListener('fetch', function(event){
     //console.log("[Service Worker] Fetching....",event);
-    var url="https://availo-api.herokuapp.com/officers";
-    if(event.request.url.indexOf(url)>-1){
-    event.respondWith(fetch(event.request).then(function(res){
-        var clonedRes = res.clone();
-        clearAllData('officer-cards').then(function(){
-            return clonedRes.json();
-        }).then(function(data){
-                for(var key in data){
-                    writeData('officer-cards',data[key]);
-                }
-                });
-        return res;
-        })
-    );
-    }
-    else if(isInArray(event.request.url,STATIC_ARRAY)){
+    if(isInArray(event.request.url,STATIC_ARRAY)){
         //Cache Only Approach For Static Cache
         event.respondWith(
             caches.match(event.request)
@@ -144,3 +129,126 @@ self.addEventListener('fetch', function(event){
         );
     }
 });
+
+
+self.addEventListener('push', function(event){
+    var id;
+    var latitude;
+    var longitude;
+    console.log("Pushhh");
+        readAllData('officer-cards').then(function(data){
+                id = data[0]._id;  
+                  
+        }).then(function(){
+            // console.log(data1);
+            // id = data1._id;
+            console.log(id);
+            readAllData('current-coords').then(function(data){
+                latitude = data[data.length-1].latitude;
+                longitude = data[data.length-1].longitude;
+        }).then(function(){
+            console.log(latitude,longitude,id);
+            fetch('https://availo-api.herokuapp.com/coords', 
+            {
+                method: 'POST',
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                   _id: id,
+                   location: {
+                       latitude: latitude,
+                       longitude: longitude
+                   } 
+                })
+            }
+            ).then(function(res){
+                console.log(res);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+        })
+        })
+        });
+
+
+
+
+// readAllData('officer-cards').then(function(data){
+//     if(data.length!=0){
+//         console.log("Function called")
+//         var id1, target, options;
+// var lastTimeStamp;
+// var LIMIT = 1000 * 30;
+// var id =data._id; // TODO: put id here
+// function success(pos) {
+// var crd = pos.coords;
+// document.querySelector('#myLocation').innerHTML = crd.latitude + ", " + crd.longitude;
+// if(typeof lastTimeStamp === 'undefined'){ // no last timestamp
+// lastTimeStamp = new Date().getTime();
+// console.log(typeof crd.latitude, crd.longitude);
+// fetch('https://availo-api.herokuapp.com/coords', {
+//   method: 'POST',
+
+//   headers: {
+//     'content-type': 'application/json',
+//   },
+//   body: JSON.stringify(
+//     {
+//       _id: id,
+//       location: {
+//         latitude: crd.latitude,
+//         longitude: crd.longitude
+//       }
+//     }
+// )
+// }).then(function(res){
+//     console.log(res);
+// }).catch(function(err){
+//   console.log(err);
+// });
+// }
+// else{
+// console.log(crd.latitude, crd.longitude);
+// var dt = new Date();
+// if(dt.getTime() - lastTimeStamp >= LIMIT){
+//   alert('its time')
+//   lastTimeStamp = dt.getTime();
+//   fetch('https://availo-api.herokuapp.com/coords', {
+//     method: 'PATCH',
+//     headers: {
+//       'content-type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       _id: id,
+//       location: {
+//         latitude: crd.latitude,
+//         longitude: crd.longitude
+//       }
+//     })
+//   }).then(function(res){
+//       console.log(res);
+//   }).catch(function(err){
+//     console.log(err);
+//   })
+// }
+// }
+// }
+
+// function error(err) {
+// console.warn('ERROR(' + err.code + '): ' + err.message);
+// }
+
+
+// options = {
+// enableHighAccuracy: false,
+// timeout: 5000,
+// maximumAge: 0
+// };
+
+// id1 = navigator.geolocation.watchPosition(success, error, options);
+
+//     }
+// });
+

@@ -1,18 +1,143 @@
-.demo-card-wide.mdl-card {
-    width: 300px;
-    margin: 0 auto;
-  }
-  .demo-card-wide > .mdl-card__title {
-    color: #fff;
-    height: 176px;
-    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/welcome_card_tuts.png') center / cover;
-  }
-  .demo-card-wide > .mdl-card__menu {
-    color: #fff;
-  }
-
-  body {
+body {
     padding: 0px 0 0;
     background: #fafafa;
     position: relative;
   }
+
+a img{
+  border: 0px;
+}
+
+::-moz-selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+::selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+.background-logo {
+  position: relative;
+  height: 400px;
+  width: auto;
+  background-color: #f3f3f3;
+  background: url('/src/images/Avail-O.png') center 30% no-repeat;
+  background-size: cover;
+}
+.info-section{
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+.logo-font {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #767777;
+  font-weight: 500;
+}
+.info-section{
+  padding: 0 80px;
+  max-width: 1044px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.android-wear-section {
+  position: relative;
+  height: 200px;
+  margin-top: none;
+}
+/* back:73C2FB */
+
+.android-wear-band {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #E0E0E0;
+
+}
+
+.android-wear-band-text {
+  max-width: 800px;
+  margin-left: 25%;
+  padding: 24px;
+  text-align: left;
+  color: black;
+  font-weight: bold;
+}
+
+  .android-wear-band-text p {
+    padding-top: 0px;
+  }
+
+.creator_cards {
+  padding: 40px 0;
+  max-width: 1044px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .creator_cards .creator-title {
+    margin-left: 12px;
+    padding-bottom: 24px;
+  }
+
+.avail-card-container {
+}
+
+  .avail-card-container .mdl-card__media {
+    overflow: hidden;
+    background: transparent;
+  }
+
+    .avail-card-container .mdl-card__media img {
+      width: 100%;
+    }
+
+  .avail-card-container .mdl-card__title {
+    background: transparent;
+    height: auto;
+  }
+
+  .avail-card-container .mdl-card__title-text {
+    color: black;
+    height: auto;
+  }
+
+  .avail-card-container .mdl-card__supporting-text {
+    height: auto;
+    color: black;
+    padding-bottom: 56px;
+  }
+
+  .avail-card-container .mdl-card__actions {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .avail-card-container .mdl-card__actions a {
+    border-top: none;
+    font-size: 16px;
+  }
+
+/**** Mobile layout ****/
+@media (max-width: 900px) {
+  .android-navigation-container {
+    display: none;
+  }
+
+  .android-title {
+    display: none !important;
+  }
+
+  .background-logo{
+    height: 350px;
+  }
+
+}
+
+  

@@ -2,7 +2,15 @@
 
 clearAllData('login-tokens').then(function(){
   console.log("Login token cleared");
-})
+});
+
+clearAllData('officer-cards').then(function(){
+  console.log("Login id cleared");
+});
+
+readAllData('login-tokens').then(function(res){
+  console.log("Empty db",res.length);
+});
 
 $("#action").click( function(){
     var email = $("#email").val();

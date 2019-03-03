@@ -1,6 +1,7 @@
 {
     "name":"AVAIL-O",
     "start":"/index.html",
+    "gcm-sender-id":"554245932488",
     "scope":".",
     "display":"standalone",
     "orientation":"portrait-primary",
